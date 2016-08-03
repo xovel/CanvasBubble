@@ -153,10 +153,10 @@ var CanvasBubble = function( options ){
     borderColors: ['#f00', '#0f0', '#00f'],
     shape: 'circle',
     scale: [.5, 1],
-    opacity: [.2, 1],
+    opacity: [.1, 1],
     speedX: [-1, 1],
     speedY: [-1, 1],
-    rotate: [.05, .1],
+    rotate: [.05, .8],
     canvasOpacity: .95,
     wrap: false,
     fps: 60

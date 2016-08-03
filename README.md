@@ -131,7 +131,7 @@ generate a random number between the two arguments.
 
 EventListener
 
-### .extend
+### extend
 
 extend object
 

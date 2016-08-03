@@ -1,19 +1,26 @@
 /*!
  * CanvasBubble
- * 制作背景泡泡
+ * A plugin for setting bubble-background of an element using canvas.
  * author: xovel
+ * last update: 2016-08-03 11:42:15
  * License: MIT
  */
 +function(window, document, undefined){
 
+// -------
 // Helpers
 
-// 颜色处理
+// color handlers
 var _color = {
 
   /**
-   * 十六进制颜色转RGB 
-   * 非十六进制颜色默认使用白色
+   * @function: hexToRgb
+   * @param: hex color
+   * @return: object{r,g,b}
+   * @example: 
+   *  ...('#d1d2d3') --> {r: 209, g: 210, b: 211}
+   *  ...('#f00') -->  {r: 255, g: 0, b: 0}
+   *  ...('abcdef') --> {r: 171, g: 205, b: 239}
    */
   hexToRgb: function(v){
     if(v.length === 4){
@@ -29,16 +36,18 @@ var _color = {
     }
   },
 
-  /**
-   * 十六进制转换辅助函数
-   */
   _toHex: function(v){
     var ret = v.toString(16);
     return ret.length === 1 ? '0' + ret : ret;
   },
 
   /**
-   * RGB转十六进制
+   * @funciton: rgbToHex
+   * @params: r,g,b RGB value
+   * @return: hex color
+   * @example:
+   *  ...(225, 225, 225) --> '#e1e1e1'
+   *  ...(158, 68, 238) --> '#9e44ee'
    */
   rgbToHex: function(r, g, b){
     return '#' + _color._toHex(r) +  _color._toHex(g) +  _color._toHex(b);
@@ -46,12 +55,12 @@ var _color = {
 
 }
 
-// 取随机数
+// get a random number between min and max
 var _random = function(min, max){
   return Math.random() * (max - min) + min;
 }
 
-// 扩展对象
+// extend on object
 var _extend = function( dest, source ){
   for( var name in source ){
     dest[name] = source[name];
@@ -59,7 +68,7 @@ var _extend = function( dest, source ){
   return dest;
 }
 
-// 选择器
+// css selector using querySelector/querySelectorAll
 var _$ = function(selector, all){
 
   return !selector ? null :
@@ -68,12 +77,12 @@ var _$ = function(selector, all){
       document.querySelectorAll(selector);
 }
 
-// 事件侦听
+// EventListener
 var _on = function( elem, type, fun ){
   elem.addEventListener(type, fun, false);
 }
 
-// 创建元素
+// createElement
 var _div = function(className, tagName){
   tagName = tagName || 'div';
   var div = document.createElement(tagName);
@@ -85,7 +94,7 @@ var _div = function(className, tagName){
   return div;
 }
 
-// 元素包裹
+// wrap an element
 var _wrap = function(elem, wrap){
 
   var div = _div(wrap);
@@ -98,14 +107,14 @@ var _wrap = function(elem, wrap){
   return div;
 }
 
-// 设置样式
+// set styles for an element
 var _css = function(elem, styles){
   for(var style in styles){
     elem.style[style] = styles[style];
   }
 }
 
-// 获取元素的宽高
+// get size of an element
 var _getSize = function(elem){
   return {
     width: elem.offsetWidth,
@@ -113,7 +122,7 @@ var _getSize = function(elem){
   }
 }
 
-// 数组或元素的遍历
+// traversal for an array or an object
 var _each = function(obj, fn){
   
   var value, i = 0, length = obj.length;
@@ -130,6 +139,9 @@ var _each = function(obj, fn){
   
   return obj;
 }
+
+// Helpers End
+// -----------
 
 var CanvasBubble = function( options ){
   options = _extend({
@@ -155,7 +167,7 @@ var CanvasBubble = function( options ){
 
   _css(elem,{'position':'relative','overflow':'hidden'});
 
-  // 包裹
+  // wrap it
   if(options.wrap){
     var wrapElem = _wrap(elem);
     _css(wrapElem,{'position':'absolute','zIndex':2, 'width':'100%'});
@@ -171,7 +183,7 @@ var CanvasBubble = function( options ){
 
   var context = canvas.getContext("2d");
 
-  // 处理颜色
+  // set color to RGB style
   _each(options.colors, function(i,v){
     if( v.substr(0, 1) === '#' ){
       var _rgb = _color.hexToRgb(v);
@@ -187,50 +199,55 @@ var CanvasBubble = function( options ){
 
   var params = [];
 
-  // 设置每个泡泡的参数并执行
+  // get every bubble's param and run this CanvasBubble effect
   function _bubbles(){
     for(var i = 0; i < options.num; ++i ){
-      // 获取随机颜色
+      // random color
       var color = options.colors[~~_random(0, options.colors.length)];
-      // 获取随机边框色
+      // random borderColor
       var borderColor = options.borderColors[~~_random(0, options.borderColors.length)];
-      // 随机透明度
+      // randowm opacity
       var opacity = _random(options.opacity[0], options.opacity[1]);
 
       params[i] = {
-        // 缩放比例
+        // random scale
         scale: _random(options.scale[0], options.scale[1]),
-        // 宽度
+
         x: _random(0, size.width),
-        // 高度
+
         y: _random(0, size.height),
-        // 旋转
+
+        // init rotation
         rotation: 0,
-        // 横向速度
+
+        // random speed for x-direction
         speedX: _random(options.speedX[0], options.speedX[1]),
-        // 纵向速度
+
+        // random speed for x-direction
         speedY: _random(options.speedY[0], options.speedY[1]),
-        // 旋转速度
+
+        // random speed for totate
         speedR: _random(options.rotate[0], options.rotate[1]),
-        // 颜色
+
+        // rgba color
         color: 'rgba(' + color + ',' + opacity + ')',
-        // 透明度
+        
         opacity: opacity,
-        // 边框色
+        
         borderColor: 'rgb(' + borderColor + ')'
       }
     }
-    // 执行效果
+    // run it!
     _run();
   }
 
-  // 运行
   function _run(){
     setInterval(function(){
-      // 清除画布
-      size = _getSize(elem);
+      // clear canvas
+      // size = _getSize(elem);
       context.clearRect(0, 0, size.width, size.height);
-      // 重绘画布
+
+      // repaint
       for(var i = 0; i < options.num; ++i ){
         var temp = params[i];
         temp.x += temp.speedX;
@@ -238,17 +255,16 @@ var CanvasBubble = function( options ){
         var ss = options.size * temp.scale;
 
         if( temp.x > size.width + ss || temp.y > size.height + ss || temp.x < -(ss * 1.5) || temp.y < -(ss * 1.5) ){
-          // 移出画布很远，进行重新调整
+          // out of sight too far, adjust it
           _adjust(temp);
         }else{
-          // 绘制
+          // draw it~
           _draw(temp);
         }
       }
     }, 1000 / options.fps);
   }
 
-  // 调整效果
   function _adjust(v){
     var rnd = _random(0, 1);
     var ss = options.size * v.scale;
@@ -262,11 +278,10 @@ var CanvasBubble = function( options ){
     _draw(v);
   }
 
-  // 绘制
   function _draw(v){
     context.fillStyle = v.color;
 
-    // 绘制边框
+    // border
     if(options.border){
       context.strokeStyle = v.borderColor;
       context.stroke();
@@ -281,7 +296,7 @@ var CanvasBubble = function( options ){
     var t1 = options.size * v.scale;
     var t2 = t1 / 2;
 
-    // 画圆与画方
+    // circle or square
     if( options.shape === 'circle' ){
       context.arc( -t2, -t2, t1, 0, 2 * Math.PI, false );
     }else{
@@ -294,7 +309,7 @@ var CanvasBubble = function( options ){
 
   _bubbles();
 
-  // 自适应调整
+  // window resize
   function _resize(){
     size = _getSize(elem);
     _css(canvas,{'width':size.width + 'px','height':size.height+'px'});
@@ -303,7 +318,7 @@ var CanvasBubble = function( options ){
   _on(window,'resize',_resize);
 }
 
-// 暴露变量
+// expose
 CanvasBubble.util = {
   'color': _color,
   'random': _random,

@@ -3,6 +3,10 @@ A plugin for setting bubble-background of an element using canvas.
 
 ----
 
+##  Chinese
+
+See [README_zh.md](README_zh.md)
+
 ## Example
 
 ```js
@@ -63,7 +67,7 @@ CanvasBubble({
 
 ### borderColor
 
-`array`, border-color of the bubble, similar to [border](#border).
+`array`, border-color of the bubble, similar to [colors](#colors).
 
 ### shape
 

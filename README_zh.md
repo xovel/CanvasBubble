@@ -1,6 +1,6 @@
 # CanvasBubble
 
-`CanvasBubble`使用canvas生成一个带泡泡背景层的一个插件。无依赖。
+`CanvasBubble`是使用canvas生成一个带泡泡背景层的一个插件。无依赖。
 
 ----
 

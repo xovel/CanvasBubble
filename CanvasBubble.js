@@ -326,7 +326,15 @@ CanvasBubble.util = {
   'extend': _extend,
   '$': _$
 }
+
 window.CanvasBubble = CanvasBubble;
+
+if ( typeof define === "function" && define.amd ) {
+  define( "CanvasBubble", [], function() {
+    return CanvasBubble;
+  } );
+}
+
 
 }(window, document);
 

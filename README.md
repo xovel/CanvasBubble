@@ -15,6 +15,8 @@ CanvasBubble({
 });
 ```
 
+[DEMO](http://xovel.cn/CanvasBubble)
+
 ## Options
 
 ### Default options
@@ -144,8 +146,8 @@ CSS selector
 ## TODO
 
 - [x] AMD
-- [ ] DEMO
-- [ ] Responsive
+- [x] DEMO
+- [x] Responsive
 - [ ] ...
 
 ## Thanks to

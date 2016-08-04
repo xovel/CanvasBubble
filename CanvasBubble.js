@@ -330,7 +330,7 @@ CanvasBubble.util = {
 window.CanvasBubble = CanvasBubble;
 
 // AMD
-if( typeof define === "function" && define.amd ){
+if(typeof define === "function" && define.amd){
   define("CanvasBubble", [], function(){
     return CanvasBubble;
   });

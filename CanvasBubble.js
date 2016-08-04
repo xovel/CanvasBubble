@@ -1,8 +1,8 @@
-/*!
+/**!
  * CanvasBubble
  * A plugin for setting bubble-background of an element using canvas.
  * author: xovel
- * last update: 2016-08-03 11:42:15
+ * last update: 2016-08-04 16:43:52
  * License: MIT
  */
 +function(window, document, undefined){

@@ -1,4 +1,4 @@
-/**!
+/*!
  * CanvasBubble
  * A plugin for setting bubble-background of an element using canvas.
  * author: xovel
@@ -42,8 +42,8 @@ var _color = {
   },
 
   /**
-   * @function: rgbToHex
-   * @param: r,g,b RGB value
+   * @funciton: rgbToHex
+   * @params: r,g,b RGB value
    * @return: hex color
    * @example:
    *  ...(225, 225, 225) --> '#e1e1e1'
@@ -326,7 +326,15 @@ CanvasBubble.util = {
   'extend': _extend,
   '$': _$
 }
+
 window.CanvasBubble = CanvasBubble;
+
+// AMD
+if( typeof define === "function" && define.amd ){
+  define("CanvasBubble", [], function(){
+    return CanvasBubble;
+  });
+}
 
 }(window, document);
 

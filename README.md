@@ -159,3 +159,4 @@ CSS selector
 - [Canvas API](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API)
 - `qslinz.js`
 - `easyBackground.js`
+- Coldplay and WangWei

@@ -162,3 +162,4 @@ CSS选择器。
 - [Canvas API](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API)
 - `qslinz.js`
 - `easyBackground.js`
+- 乐队Coldplay与唐代诗人王维

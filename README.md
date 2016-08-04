@@ -89,7 +89,7 @@ CanvasBubble({
 
 ### canvasOpacity
 
-`number`, the opacity of canvans.
+`number`, the opacity of canvas.
 
 ### wrap
 
